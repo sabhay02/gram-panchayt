@@ -1,359 +1,494 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { 
-  Search, 
-  Filter, 
-  Users, 
-  Home, 
-  GraduationCap, 
-  Heart, 
-  Briefcase,
-  Leaf,
-  ArrowRight,
-  Calendar,
-  DollarSign,
-  CheckCircle
-} from 'lucide-react';
-import Card from '../components/Card';
+@import "tailwindcss";
 
-const Schemes = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedLevel, setSelectedLevel] = useState('all');
+/* Base styles */
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1f2937; /* text-gray-800 */
+    background-color: #f9fafb; /* bg-gray-50 */
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-  const schemes = [
-    {
-      id: 1,
-      title: 'Pradhan Mantri Awas Yojana',
-      description: 'Housing scheme for economically weaker sections to provide affordable housing with financial assistance.',
-      category: 'housing',
-      level: 'central',
-      icon: Home,
-      color: 'blue',
-      benefits: ['₹2.5 Lakh subsidy', 'Low interest rate', 'Easy EMI options'],
-      eligibility: ['Annual income < ₹6 Lakh', 'First-time home buyer', 'No existing house'],
-      lastDate: '2024-12-31',
-      status: 'active'
-    },
-    {
-      id: 2,
-      title: 'Mahatma Gandhi NREGA',
-      description: 'Employment guarantee scheme providing 100 days of wage employment to rural households.',
-      category: 'employment',
-      level: 'central',
-      icon: Briefcase,
-      color: 'green',
-      benefits: ['100 days guaranteed work', '₹250/day wage', 'Skill development'],
-      eligibility: ['Rural household', 'Adult member', 'Job card holder'],
-      lastDate: 'Ongoing',
-      status: 'active'
-    },
-    {
-      id: 3,
-      title: 'PM Kisan Samman Nidhi',
-      description: 'Direct income support to farmers with ₹6000 per year in three equal installments.',
-      category: 'agriculture',
-      level: 'central',
-      icon: Leaf,
-      color: 'secondary',
-      benefits: ['₹6000 per year', 'Direct bank transfer', 'No middleman'],
-      eligibility: ['Small & marginal farmers', 'Land ownership', 'Bank account'],
-      lastDate: 'Ongoing',
-      status: 'active'
-    },
-    {
-      id: 4,
-      title: 'Beti Bachao Beti Padhao',
-      description: 'Scheme to address declining child sex ratio and promote education of girl children.',
-      category: 'education',
-      level: 'central',
-      icon: GraduationCap,
-      color: 'purple',
-      benefits: ['Education support', 'Awareness programs', 'Financial incentives'],
-      eligibility: ['Girl child', 'School enrollment', 'Regular attendance'],
-      lastDate: '2024-06-30',
-      status: 'active'
-    },
-    {
-      id: 5,
-      title: 'Ayushman Bharat',
-      description: 'Health insurance scheme providing ₹5 lakh coverage per family per year.',
-      category: 'health',
-      level: 'central',
-      icon: Heart,
-      color: 'primary',
-      benefits: ['₹5 Lakh coverage', 'Cashless treatment', 'Pre-existing conditions covered'],
-      eligibility: ['SECC database', 'Below poverty line', 'Valid Aadhaar'],
-      lastDate: 'Ongoing',
-      status: 'active'
-    },
-    {
-      id: 6,
-      title: 'State Scholarship Scheme',
-      description: 'Merit-based scholarship for students from economically backward families.',
-      category: 'education',
-      level: 'state',
-      icon: GraduationCap,
-      color: 'blue',
-      benefits: ['₹50,000 per year', 'Book allowance', 'Hostel facility'],
-      eligibility: ['Merit student', 'Family income < ₹2 Lakh', 'State domicile'],
-      lastDate: '2024-03-31',
-      status: 'active'
-    }
-  ];
+  * {
+    box-sizing: border-box;
+  }
 
-  const categories = [
-    { value: 'all', label: 'All Categories' },
-    { value: 'housing', label: 'Housing' },
-    { value: 'employment', label: 'Employment' },
-    { value: 'agriculture', label: 'Agriculture' },
-    { value: 'education', label: 'Education' },
-    { value: 'health', label: 'Health' }
-  ];
+  html {
+    scroll-behavior: smooth;
+  }
+}
 
-  const levels = [
-    { value: 'all', label: 'All Levels' },
-    { value: 'central', label: 'Central' },
-    { value: 'state', label: 'State' },
-    { value: 'local', label: 'Local' }
-  ];
+/* Components */
+@layer components {
+  /* Primary Button */
+  .btn-primary {
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem; /* more balanced */
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 8px 25px 0 rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+    outline: none;
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.2);
+  }
+  
+  .btn-primary:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  .btn-primary:disabled {
+    background: #93c5fd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transform: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 
-  const filteredSchemes = schemes.filter(scheme => {
-    const matchesSearch = scheme.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         scheme.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || scheme.category === selectedCategory;
-    const matchesLevel = selectedLevel === 'all' || scheme.level === selectedLevel;
-    return matchesSearch && matchesCategory && matchesLevel;
-  });
+  ::-webkit-scrollbar-thumb {
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.2);
+  }
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="py-8"
-    >
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600 to-purple-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Government Schemes</h1>
-            <p className="text-xl text-purple-100 max-w-3xl mx-auto">
-              Explore various government schemes and benefits available for citizens. 
-              Find the right scheme for you and apply online.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+    border: none;
+  }
+  
+  /* Secondary Button */
+  .btn-secondary {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+  }
+  
+  .btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59,130,246,0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-secondary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-secondary:hover {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border-color: #3b82f6;
+    color: #2563eb;
+    transform: translateY(-2px);
+    outline: none;
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
 
-      {/* Search and Filter */}
-      <section className="py-8 bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-4 items-center">
-            <div className="relative flex-1 max-w-md">
-              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search schemes..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="input-field pl-10"
-              />
-            </div>
-            
-            <div className="flex gap-4">
-              <div className="relative">
-                <Filter size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="input-field pl-10 pr-8 appearance-none bg-white"
-                >
-                  {categories.map(category => (
-                    <option key={category.value} value={category.value}>
-                      {category.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              
-              <div className="relative">
-                <select
-                  value={selectedLevel}
-                  onChange={(e) => setSelectedLevel(e.target.value)}
-                  className="input-field pr-8 appearance-none bg-white"
-                >
-                  {levels.map(level => (
-                    <option key={level.value} value={level.value}>
-                      {level.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-color: #1d4ed8;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.15);
+    outline: 2px solid #d1d5db;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+  }
 
-      {/* Schemes Grid */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Available Schemes ({filteredSchemes.length})
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Discover government schemes that can benefit you and your family. 
-              Each scheme is designed to support different aspects of life and development.
-            </p>
-          </motion.div>
+  /* Success Button */
+  .btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transform: translateY(0);
+  }
+  
+  .btn-success:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 8px 25px 0 rgba(16, 185, 129, 0.3);
+    transform: translateY(-2px);
+  }
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {filteredSchemes.map((scheme, index) => {
-              const Icon = scheme.icon;
-              return (
-                <motion.div
-                  key={scheme.id}
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
-                >
-                  <Card className="h-full">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center border ${
-                        scheme.color === 'primary' ? 'bg-primary-50 text-primary-600 border-primary-200' :
-                        scheme.color === 'secondary' ? 'bg-secondary-50 text-secondary-600 border-secondary-200' :
-                        scheme.color === 'blue' ? 'bg-blue-50 text-blue-600 border-blue-200' :
-                        scheme.color === 'purple' ? 'bg-purple-50 text-purple-600 border-purple-200' :
-                        'bg-green-50 text-green-600 border-green-200'
-                      }`}>
-                        <Icon size={24} />
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                          scheme.level === 'central' ? 'bg-blue-100 text-blue-800' :
-                          scheme.level === 'state' ? 'bg-green-100 text-green-800' :
-                          'bg-purple-100 text-purple-800'
-                        }`}>
-                          {scheme.level.charAt(0).toUpperCase() + scheme.level.slice(1)}
-                        </span>
-                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                          <CheckCircle size={12} className="inline mr-1" />
-                          Active
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-xl font-semibold text-gray-800 mb-3">{scheme.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{scheme.description}</p>
-                    
-                    <div className="space-y-4 mb-6">
-                      <div>
-                        <h4 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-                          <DollarSign size={16} className="mr-1 text-green-600" />
-                          Key Benefits:
-                        </h4>
-                        <ul className="text-xs text-gray-600 space-y-1">
-                          {scheme.benefits.map((benefit, idx) => (
-                            <li key={idx} className="flex items-center">
-                              <span className="w-1 h-1 bg-green-500 rounded-full mr-2"></span>
-                              {benefit}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div>
-                        <h4 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-                          <Users size={16} className="mr-1 text-blue-600" />
-                          Eligibility:
-                        </h4>
-                        <ul className="text-xs text-gray-600 space-y-1">
-                          {scheme.eligibility.map((criteria, idx) => (
-                            <li key={idx} className="flex items-center">
-                              <span className="w-1 h-1 bg-blue-500 rounded-full mr-2"></span>
-                              {criteria}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div className="flex items-center justify-between text-xs pt-2 border-t border-gray-100">
-                        <div className="flex items-center text-gray-500">
-                          <Calendar size={14} className="mr-1" />
-                          <span>Last Date: {scheme.lastDate}</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-3">
-                      <button className="flex-1 btn-primary flex items-center justify-center space-x-2">
-                        <span>Apply Now</span>
-                        <ArrowRight size={16} />
-                      </button>
-                      <button className="btn-secondary">
-                        Details
-                      </button>
-                    </div>
-                  </Card>
-                </motion.div>
-              );
-            })}
-          </div>
+  /* Warning Button */
+  .btn-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transform: translateY(0);
+  }
+  
+  .btn-warning:hover {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    box-shadow: 0 8px 25px 0 rgba(245, 158, 11, 0.3);
+    transform: translateY(-2px);
+  }
 
-          {filteredSchemes.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-12"
-            >
-              <div className="text-gray-400 mb-4">
-                <Search size={48} className="mx-auto" />
-              </div>
-              <h3 className="text-lg font-medium text-gray-600 mb-2">No schemes found</h3>
-              <p className="text-gray-500">Try adjusting your search or filter criteria</p>
-            </motion.div>
-          )}
-        </div>
-      </section>
+  /* Danger Button */
+  .btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transform: translateY(0);
+  }
+  
+  .btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    box-shadow: 0 8px 25px 0 rgba(239, 68, 68, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover::before {
+    transform: scaleX(1);
+  }
 
-      {/* Help Section */}
-      <section className="py-16 bg-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-          >
-            <h2 className="text-3xl font-bold mb-4">Need Assistance?</h2>
-            <p className="text-purple-100 mb-8 max-w-2xl mx-auto">
-              Our team is here to help you understand scheme eligibility, application process, 
-              and guide you through the entire journey.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary bg-white text-purple-600 hover:bg-gray-100">
-                Get Help
-              </button>
-              <button className="btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-purple-600">
-                Download Brochure
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-    </motion.div>
-  );
-};
+  /* Card */
+  .card {
+    background-color: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: all 250ms ease-in-out;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: #3b82f6;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .card-hover {
+    @apply card;
+    cursor: pointer;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-color: #2563eb;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12), 0 3px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+  
+  .card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .card img:hover {
+    background-color: #fff;
+  }
 
-export default Schemes;
+  /* Input Fields */
+  .input-field {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    transition: all 200ms ease-in-out;
+    color: #6b7280;
+  }
+  
+  .input-field::placeholder {
+    color: #9ca3af;
+    opacity: 1;
+  }
+  
+  .input-field:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+  }
+  
+  .input-field:hover:not(:focus) {
+    border-color: #cbd5e1;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    background-color: #f8fafc;
+  }
+  
+  .input-field:disabled {
+    background-color: #e5e7eb;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  /* Enhanced animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  .animate-bounce-in {
+    animation: bounceIn 0.6s ease-out;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Loading spinner */
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f4f6;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .gradient-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+  
+  .gradient-success {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+  
+  .gradient-warning {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Text gradients */
+  .text-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Section spacing utility */
+  .section-spacing {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-warning,
+  .btn-danger {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .input-field {
+    padding: 0.625rem 0.875rem;
+  }
+}
+
+/* Focus visible for accessibility */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-success:focus-visible,
+.btn-warning:focus-visible,
+.btn-danger:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-warning,
+  .btn-danger {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+  }
+}

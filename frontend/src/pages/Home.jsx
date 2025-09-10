@@ -1,279 +1,503 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { 
-  FileText, 
-  Gift, 
-  Phone, 
-  Users, 
-  Award, 
-  TrendingUp,
-  Bell,
-  Calendar,
-  MapPin,
-  ArrowRight
-} from 'lucide-react';
-import Card from '../components/Card';
-import ServiceCard from '../components/ServiceCard';
+@import "tailwindcss";
 
-const Home = () => {
-  const quickServices = [
-    {
-      icon: FileText,
-      title: 'Certificates',
-      description: 'Apply for birth, death, marriage certificates',
-      link: '/services',
-      color: 'blue'
-    },
-    {
-      icon: Gift,
-      title: 'Government Schemes',
-      description: 'Explore and apply for various government schemes',
-      link: '/schemes',
-      color: 'green'
-    },
-    {
-      icon: Phone,
-      title: 'Grievances',
-      description: 'Register and track your complaints',
-      link: '/contact',
-      color: 'red'
-    },
-    {
-      icon: Users,
-      title: 'Community Services',
-      description: 'Access community development programs',
-      link: '/services',
-      color: 'purple'
-    }
-  ];
+/* Base styles */
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1f2937; /* text-gray-800 */
+    background-color: #f9fafb; /* bg-gray-50 */
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-  const stats = [
-    { icon: Users, label: 'Total Population', value: '12,450', color: 'bg-blue-100 text-blue-600' },
-    { icon: Award, label: 'Services Delivered', value: '2,340', color: 'bg-green-100 text-green-600' },
-    { icon: TrendingUp, label: 'Active Schemes', value: '45', color: 'bg-purple-100 text-purple-600' },
-    { icon: FileText, label: 'Applications Processed', value: '1,890', color: 'bg-orange-100 text-orange-600' }
-  ];
+  * {
+    box-sizing: border-box;
+  }
 
-  const news = [
-    {
-      title: 'New Water Supply Project Launched',
-      date: '2024-01-15',
-      description: 'A new water supply project has been initiated to provide clean drinking water to all households.'
-    },
-    {
-      title: 'Digital Literacy Program',
-      date: '2024-01-10',
-      description: 'Free digital literacy classes for senior citizens starting from next week.'
-    },
-    {
-      title: 'Road Development Update',
-      date: '2024-01-05',
-      description: 'Construction of new concrete roads in Ward 3 and Ward 5 completed successfully.'
-    }
-  ];
+  html {
+    scroll-behavior: smooth;
+  }
+}
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800 text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/white-wall.png')] opacity-10" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            >
-              <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight drop-shadow-md">
-                Welcome to<br />
-                <span className="text-primary-200">Digital Village</span>
-              </h1>
-              <p className="text-lg md:text-xl mb-8 text-primary-100 leading-relaxed">
-                Empowering our community through digital governance, transparent services, 
-                and citizen-centric solutions for a progressive village.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/services" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
-                  Explore Services
-                </Link>
-                <Link to="/schemes" className="btn-secondary border-2 border-white text-white hover:bg-white hover:text-primary-600">
-                  View Schemes
-                </Link>
-              </div>
-            </motion.div>
+/* Components */
+@layer components {
+  /* Primary Button */
+  .btn-primary {
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+    box-shadow: 0 8px 25px 0 rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+    outline: none;
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.2);
+  }
+  
+  .btn-primary:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #93c5fd;
+    box-shadow: none;
+    transform: none;
+  }
 
-            {/* Right Card */}
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="relative"
-            >
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition">
-                <div className="flex items-center space-x-4 mb-6">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
-                    <span className="text-primary-600 font-bold text-2xl">GP</span>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold">Gram Panchayat</h3>
-                    <p className="text-primary-200">Village Name, District</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold">12K+</div>
-                    <div className="text-primary-200 text-sm">Citizens</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold">45</div>
-                    <div className="text-primary-200 text-sm">Services</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+  ::-webkit-scrollbar-thumb {
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.2);
+  }
 
-      {/* Quick Services */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Quick Access Services
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Access essential government services and information with just a few clicks. 
-              Our digital platform makes it easy to connect with your local administration.
-            </p>
-          </motion.div>
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+  }
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickServices.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8 + index * 0.1, duration: 0.6 }}
-              >
-                <ServiceCard {...service} className="hover:shadow-xl hover:-translate-y-1 transition-all" />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+  /* Secondary Button */
+  .btn-secondary {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+  }
+  
+  .btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59,130,246,0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-secondary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-secondary:hover {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border-color: #3b82f6;
+    color: #2563eb;
+    transform: translateY(-2px);
+    outline: none;
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
 
-      {/* Statistics */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <motion.div
-                  key={stat.label}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 1.2 + index * 0.1, duration: 0.6 }}
-                >
-                  <Card className="text-center rounded-xl shadow-md hover:shadow-lg transition">
-                    <div className={`w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-full ${stat.color}`}>
-                      <Icon size={24} />
-                    </div>
-                    <div className="text-3xl font-bold text-gray-800 mb-2">{stat.value}</div>
-                    <div className="text-gray-600">{stat.label}</div>
-                  </Card>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-color: #2563eb;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.15);
+    outline: 2px solid #d1d5db;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+  }
 
-      {/* News & Updates */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                Latest News & Updates
-              </h2>
-              <p className="text-gray-600">
-                Stay informed about the latest developments and announcements from your Gram Panchayat.
-              </p>
-            </div>
-            <Bell className="text-primary-600 animate-pulse" size={32} />
-          </div>
+  /* Success Button */
+  .btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transform: translateY(0);
+  }
+  
+  .btn-success:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 8px 25px 0 rgba(16, 185, 129, 0.3);
+    transform: translateY(-2px);
+  }
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {news.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.6 + index * 0.1, duration: 0.6 }}
-              >
-                <Card className="h-full rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all">
-                  <div className="flex items-center space-x-2 text-primary-600 mb-3">
-                    <Calendar size={16} />
-                    <span className="text-sm">{new Date(item.date).toLocaleDateString()}</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">{item.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
-                  <button className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors">
-                    <span className="underline">Read More</span>
-                    <ArrowRight size={16} />
-                  </button>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+  /* Warning Button */
+  .btn-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transform: translateY(0);
+  }
+  
+  .btn-warning:hover {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    box-shadow: 0 8px 25px 0 rgba(245, 158, 11, 0.3);
+    transform: translateY(-2px);
+  }
 
-      {/* CTA Section */}
-      <section className="py-16 bg-primary-600 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/white-wall.png')] opacity-10" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 2, duration: 0.6 }}
-          >
-            <MapPin size={48} className="mx-auto mb-6 text-primary-200 animate-bounce" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Building a Digital Future Together
-            </h2>
-            <p className="text-lg md:text-xl mb-8 text-primary-100 max-w-3xl mx-auto leading-relaxed">
-              Join us in our mission to create a transparent, efficient, and citizen-friendly 
-              governance system that serves everyone in our community.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact" className="btn-primary bg-white text-primary-600 hover:bg-gray-100">
-                Get in Touch
-              </Link>
-              <Link to="/about" className="btn-secondary border-2 border-white text-white hover:bg-white hover:text-primary-600">
-                Learn More About Us
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-    </motion.div>
-  );
-};
+  /* Danger Button */
+  .btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transform: translateY(0);
+  }
+  
+  .btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    box-shadow: 0 8px 25px 0 rgba(239, 68, 68, 0.3);
+    transform: translateY(-2px);
+  }
 
-export default Home;
+  /* Card */
+  .card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+    transition: all 250ms ease-in-out;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: #3b82f6;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .card-hover {
+    @apply card;
+    cursor: pointer;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-color: #2563eb;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12), 0 3px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+
+  .card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .card img:hover {
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  /* Input Fields */
+  .input-field {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    transition: all 200ms ease-in-out;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .input-field::placeholder {
+    color: #9ca3af;
+    opacity: 1;
+  }
+
+  .input-field:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+  }
+  
+  .input-field:hover:not(:focus) {
+    border-color: #cbd5e1;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    background-color: #f8fafc;
+  }
+
+  .input-field:disabled {
+    background-color: #f9fafb;
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+    opacity: 0.6;
+    color: #6b7280;
+    cursor: not-allowed;
+  }
+
+  /* Enhanced animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  .animate-bounce-in {
+    animation: bounceIn 0.6s ease-out;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Loading spinner */
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f4f6;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .gradient-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+  
+  .gradient-success {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+  
+  .gradient-warning {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Text gradients */
+  .text-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Section spacing utility */
+  .section-spacing {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-warning,
+  .btn-danger {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .input-field {
+    padding: 0.625rem 0.875rem;
+  }
+}
+
+/* Focus visible for accessibility */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-success:focus-visible,
+.btn-warning:focus-visible,
+.btn-danger:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-warning,
+  .btn-danger {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+  }
+
+  .card {
+    background-color: #e5e7eb;
+    box-shadow: none !important;
+  }
+}
