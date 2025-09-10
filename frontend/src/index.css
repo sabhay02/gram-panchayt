@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* Base styles */
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1f2937; /* text-gray-800 */
+    background-color: #f9fafb; /* bg-gray-50 */
+  }
+}
+
+/* Components */
+@layer components {
+  /* Primary Button */
+  .btn-primary {
+    background-color: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem; /* more balanced */
+    border-radius: 0.5rem;
+    transition: all 200ms ease-in-out;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: #1d4ed8;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.15);
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  .btn-primary:disabled {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    font-weight: 500;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 200ms ease-in-out;
+    box-shadow: 0 1px 4px rgba(31,41,55,0.06);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background-color: #e5e7eb;
+    box-shadow: 0 2px 8px rgba(31,41,55,0.10);
+    outline: 2px solid #d1d5db;
+    outline-offset: 2px;
+  }
+
+  /* Card */
+  .card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    border: 1px solid #f3f4f6;
+    padding: 1.5rem;
+    transition: all 250ms ease-in-out;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-3px) scale(1.01);
+    border-color: #2563eb;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12), 0 3px 10px rgba(0,0,0,0.08);
+  }
+  .card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: box-shadow 200ms ease-in-out;
+  }
+  .card img:hover {
+    box-shadow: 0 4px 16px rgba(37,99,235,0.15);
+  }
+
+  /* Input Fields */
+  .input-field {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    font-size: 1rem;
+    transition: all 200ms ease-in-out;
+  }
+  .input-field:focus {
+    border-color: #2563eb;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.4);
+  }
+  .input-field:disabled {
+    background-color: #e5e7eb;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  /* Section spacing utility */
+  .section-spacing {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
