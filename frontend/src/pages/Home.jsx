@@ -17,47 +17,49 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 import { useNotification } from '../hooks/useNotification';
 import NotificationContainer from '../components/NotificationContainer';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Home = () => {
   const { notifications, showSuccess, showError, showInfo, removeNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useLanguage();
 
   const services = [
     {
       icon: FileText,
-      title: 'Birth Certificate',
-      description: 'Apply for birth certificate online with quick processing and home delivery option.',
+      title: t('services.birth_certificate'),
+      description: t('services.birth_certificate_desc') || 'Apply for birth certificate online with quick processing and home delivery option.',
       color: 'blue',
       link: '/services'
     },
     {
       icon: Users,
-      title: 'Ration Card',
-      description: 'New ration card application and renewal services with digital verification.',
+      title: t('services.ration_card'),
+      description: t('services.ration_card_desc') || 'New ration card application and renewal services with digital verification.',
       color: 'green',
       link: '/services'
     },
     {
       icon: Building,
-      title: 'Property Tax',
-      description: 'Pay property tax online and get instant receipts with tax calculation tools.',
+      title: t('services.property_tax'),
+      description: t('services.property_tax_desc') || 'Pay property tax online and get instant receipts with tax calculation tools.',
       color: 'orange',
       link: '/services'
     },
     {
       icon: Phone,
-      title: 'Water Connection',
-      description: 'Apply for new water connection or report issues with 24/7 support system.',
+      title: t('services.water_connection'),
+      description: t('services.water_connection_desc') || 'Apply for new water connection or report issues with 24/7 support system.',
       color: 'blue',
       link: '/services'
     }
   ];
 
   const stats = [
-    { label: 'Total Population', value: '12,450', icon: Users },
-    { label: 'Services Available', value: '25+', icon: FileText },
-    { label: 'Applications Processed', value: '3,200+', icon: CheckCircle },
-    { label: 'Response Time', value: '< 24hrs', icon: Clock }
+    { label: t('stats.total_population') || 'Total Population', value: '12,450', icon: Users },
+    { label: t('stats.services_available') || 'Services Available', value: '25+', icon: FileText },
+    { label: t('stats.applications_processed') || 'Applications Processed', value: '3,200+', icon: CheckCircle },
+    { label: t('stats.response_time') || 'Response Time', value: '< 24hrs', icon: Clock }
   ];
 
   const handleServiceClick = (service) => {
@@ -109,7 +111,7 @@ const Home = () => {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg"
           >
-            Welcome to <span className="text-yellow-300">e-Gram Panchayat</span>
+            {t('home.title')}
           </motion.h1>
           <motion.p
             initial={{ y: 30, opacity: 0 }}
@@ -117,8 +119,7 @@ const Home = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-lg md:text-xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed"
           >
-            Your digital gateway to efficient village governance. Access services, 
-            track applications, and connect with your community - all in one place.
+            {t('home.subtitle')}
           </motion.p>
           <motion.div
             initial={{ y: 30, opacity: 0 }}
@@ -133,7 +134,7 @@ const Home = () => {
               onClick={() => window.location.href = '/services'}
               className="bg-white text-blue-600 hover:bg-gray-100"
             >
-              Explore Services
+              {t('home.explore_services')}
             </Button>
             <Button
               variant="secondary"
@@ -143,7 +144,7 @@ const Home = () => {
               onClick={handleDownloadGuide}
               className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600"
             >
-              Download Guide
+              {t('home.download_guide')}
             </Button>
           </motion.div>
         </div>
@@ -184,7 +185,7 @@ const Home = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Popular Services
+              {t('home.popular_services')}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Quick access to the most requested services with streamlined processes 
@@ -241,7 +242,7 @@ const Home = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Latest Updates
+              {t('home.latest_updates')}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Stay informed about the latest developments, announcements, and 
@@ -308,7 +309,7 @@ const Home = () => {
             transition={{ delay: 2.4, duration: 0.6 }}
           >
             <Phone size={48} className="mx-auto mb-6 animate-pulse" />
-            <h2 className="text-3xl font-bold mb-4">Emergency Services</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('home.emergency_services')}</h2>
             <p className="text-red-100 mb-8 max-w-2xl mx-auto">
               For urgent matters and emergencies, contact our 24/7 helpline. 
               We're here to help you round the clock.
@@ -336,7 +337,7 @@ const Home = () => {
           >
             <Star size={48} className="mx-auto mb-6 text-yellow-300" />
             <h2 className="text-4xl font-extrabold mb-4">
-              Join the Digital Revolution
+              {t('home.join_revolution')}
             </h2>
             <p className="text-indigo-100 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
               Be part of our journey towards a fully digital and transparent 
@@ -350,7 +351,7 @@ const Home = () => {
                 onClick={() => window.location.href = '/about'}
                 className="bg-white text-indigo-600 hover:bg-gray-100"
               >
-                Learn More About Us
+                {t('home.learn_more')}
               </Button>
               <Button
                 variant="secondary"
@@ -359,7 +360,7 @@ const Home = () => {
                 onClick={() => window.location.href = '/contact'}
                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-600"
               >
-                Get in Touch
+                {t('home.get_in_touch')}
               </Button>
             </div>
           </motion.div>

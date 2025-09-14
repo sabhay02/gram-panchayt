@@ -20,19 +20,21 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 import { useNotification } from '../hooks/useNotification';
 import NotificationContainer from '../components/NotificationContainer';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Services = () => {
   const { notifications, showSuccess, showError, showInfo, removeNotification } = useNotification();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [applicationStatus, setApplicationStatus] = useState({});
+  const { t } = useLanguage();
 
   const services = [
     {
       id: 1,
       icon: FileText,
-      title: 'Birth Certificate',
-      description: 'Apply for birth certificate with required documents. Processing time: 7-10 days.',
+      title: t('services.birth_certificate'),
+      description: t('services.birth_certificate_desc') || 'Apply for birth certificate with required documents. Processing time: 7-10 days.',
       category: 'certificates',
       fee: '₹50',
       documents: ['Hospital Birth Record', 'Parent ID Proof', 'Address Proof'],
@@ -42,8 +44,8 @@ const Services = () => {
     {
       id: 2,
       icon: FileText,
-      title: 'Death Certificate',
-      description: 'Apply for death certificate with medical records. Processing time: 5-7 days.',
+      title: t('services.death_certificate'),
+      description: t('services.death_certificate_desc') || 'Apply for death certificate with medical records. Processing time: 5-7 days.',
       category: 'certificates',
       fee: '₹50',
       documents: ['Medical Certificate', 'ID Proof', 'Address Proof'],
@@ -53,8 +55,8 @@ const Services = () => {
     {
       id: 3,
       icon: Users,
-      title: 'Ration Card',
-      description: 'New ration card application and renewal services with income verification.',
+      title: t('services.ration_card'),
+      description: t('services.ration_card_desc') || 'New ration card application and renewal services with income verification.',
       category: 'welfare',
       fee: 'Free',
       documents: ['Income Certificate', 'Address Proof', 'Family Photo'],
@@ -119,13 +121,13 @@ const Services = () => {
   ];
 
   const categories = [
-    { value: 'all', label: 'All Services' },
-    { value: 'certificates', label: 'Certificates' },
-    { value: 'welfare', label: 'Welfare Schemes' },
-    { value: 'tax', label: 'Tax Services' },
-    { value: 'utilities', label: 'Utilities' },
-    { value: 'business', label: 'Business' },
-    { value: 'construction', label: 'Construction' }
+    { value: 'all', label: t('categories.all_services') || 'All Services' },
+    { value: 'certificates', label: t('categories.certificates') || 'Certificates' },
+    { value: 'welfare', label: t('categories.welfare') || 'Welfare Schemes' },
+    { value: 'tax', label: t('categories.tax') || 'Tax Services' },
+    { value: 'utilities', label: t('categories.utilities') || 'Utilities' },
+    { value: 'business', label: t('categories.business') || 'Business' },
+    { value: 'construction', label: t('categories.construction') || 'Construction' }
   ];
 
   const filteredServices = services.filter(service => {
@@ -194,11 +196,10 @@ const Services = () => {
             transition={{ delay: 0.2 }}
             className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg"
           >
-            Digital Services
+            {t('services.title')}
           </motion.h1>
           <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
-            Access all government services online with ease. Apply, track, and manage 
-            your applications from the comfort of your home.
+            {t('services.subtitle')}
           </p>
         </div>
       </section>
@@ -211,7 +212,7 @@ const Services = () => {
               <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search services..."
+                placeholder={t('common.search') + ' services...'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="input-field pl-10"
@@ -245,7 +246,7 @@ const Services = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Available Services ({filteredServices.length})
+              {t('services.available')} ({filteredServices.length})
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Choose from our comprehensive list of digital services designed to make 
@@ -290,17 +291,17 @@ const Services = () => {
 
                     <div className="space-y-3 mb-6">
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">Fee:</span>
+                        <span className="text-gray-500">{t('services.fee')}:</span>
                         <span className="font-medium text-gray-800">{service.fee}</span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">Processing:</span>
+                        <span className="text-gray-500">{t('services.processing_time')}:</span>
                         <span className="font-medium text-gray-800">{service.processingTime}</span>
                       </div>
                     </div>
 
                     <div className="mb-4">
-                      <p className="text-sm text-gray-500 mb-2">Required Documents:</p>
+                      <p className="text-sm text-gray-500 mb-2">{t('services.required_documents')}:</p>
                       <ul className="text-xs text-gray-600 space-y-1">
                         {service.documents.map((doc, i) => (
                           <li key={i} className="flex items-center">
@@ -321,7 +322,7 @@ const Services = () => {
                         onClick={() => handleApplyService(service)}
                         className="flex-1"
                       >
-                        {status === 'success' ? 'Applied' : 'Apply Now'}
+                        {status === 'success' ? t('services.applied') : t('services.apply_now')}
                       </Button>
                       <Button
                         variant="secondary"
@@ -361,7 +362,7 @@ const Services = () => {
             transition={{ delay: 1 }}
           >
             <Heart size={48} className="mx-auto text-blue-600 mb-6" />
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Need Help?</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">{t('services.need_help')}</h2>
             <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
               Our support team is here to assist you with any questions about our services 
               or help you complete your applications.
@@ -372,13 +373,13 @@ const Services = () => {
                 icon={Phone}
                 onClick={() => window.open('tel:+911234567890', '_self')}
               >
-                Call Support: +91 12345 67890
+                {t('services.call_support')}: +91 12345 67890
               </Button>
               <Button
                 variant="secondary"
                 onClick={() => window.location.href = '/contact'}
               >
-                Contact Us
+                {t('services.contact_us')}
               </Button>
             </div>
           </motion.div>
