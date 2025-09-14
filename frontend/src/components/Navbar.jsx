@@ -2,19 +2,22 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu, X, Home, Info, FileText, Gift, Camera, Phone, LogIn } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
+import LanguageToggle from './LanguageToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navItems = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/about', label: 'About Us', icon: Info },
-    { path: '/services', label: 'Services', icon: FileText },
-    { path: '/schemes', label: 'Schemes', icon: Gift },
-    { path: '/gallery', label: 'Gallery', icon: Camera },
-    { path: '/contact', label: 'Contact', icon: Phone },
-    { path: '/login', label: 'Login', icon: LogIn },
+    { path: '/', label: t('nav.home'), icon: Home },
+    { path: '/about', label: t('nav.about'), icon: Info },
+    { path: '/services', label: t('nav.services'), icon: FileText },
+    { path: '/schemes', label: t('nav.schemes'), icon: Gift },
+    { path: '/gallery', label: t('nav.gallery'), icon: Camera },
+    { path: '/contact', label: t('nav.contact'), icon: Phone },
+    { path: '/login', label: t('nav.login'), icon: LogIn },
   ];
 
   return (
@@ -27,13 +30,13 @@ const Navbar = () => {
               <span className="text-white font-bold text-lg">GP</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">e-Gram Panchayat</h1>
-              <p className="text-xs text-gray-500">Digital Village Portal</p>
+              <h1 className="text-xl font-bold text-gray-800">{t('nav.title') || 'e-Gram Panchayat'}</h1>
+              <p className="text-xs text-gray-500">{t('nav.subtitle') || 'Digital Village Portal'}</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-1 mr-4">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
@@ -53,6 +56,11 @@ const Navbar = () => {
                 </Link>
               );
             })}
+          </div>
+          
+          {/* Language Toggle - Desktop */}
+          <div className="hidden md:block">
+            <LanguageToggle />
           </div>
 
           {/* Mobile menu button */}
@@ -93,6 +101,11 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            
+            {/* Language Toggle - Mobile */}
+            <div className="px-4 py-3 border-t border-gray-100">
+              <LanguageToggle className="w-full justify-center" />
+            </div>
           </div>
         </motion.div>
       </div>
