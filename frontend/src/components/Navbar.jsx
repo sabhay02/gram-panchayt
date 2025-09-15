@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Menu, X, Home, Info, FileText, Gift, Camera, Phone, LogIn } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import LanguageToggle from './LanguageToggle';
+import SpeechButton from './SpeechButton';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,8 +59,14 @@ const Navbar = () => {
             })}
           </div>
           
-          {/* Language Toggle - Desktop */}
-          <div className="hidden md:block">
+          {/* Language Toggle and Speech - Desktop */}
+          <div className="hidden md:flex items-center space-x-3">
+            <SpeechButton 
+              text="Welcome to e-Gram Panchayat Digital Village Portal"
+              size="md"
+              variant="hindi"
+              showText={true}
+            />
             <LanguageToggle />
           </div>
 

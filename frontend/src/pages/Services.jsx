@@ -21,6 +21,7 @@ import Button from '../components/Button';
 import { useNotification } from '../hooks/useNotification';
 import NotificationContainer from '../components/NotificationContainer';
 import { useLanguage } from '../hooks/useLanguage';
+import SpeechButton from '../components/SpeechButton';
 
 const Services = () => {
   const { notifications, showSuccess, showError, showInfo, removeNotification } = useNotification();
@@ -279,7 +280,14 @@ const Services = () => {
                       }`}>
                         <Icon size={24} />
                       </div>
-                      {getStatusIcon(service.id)}
+                      <div className="flex items-center space-x-2">
+                        <SpeechButton 
+                          service={service}
+                          size="sm"
+                          variant="hindi"
+                        />
+                        {getStatusIcon(service.id)}
+                      </div>
                     </div>
 
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">

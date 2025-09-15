@@ -18,6 +18,7 @@ import Button from '../components/Button';
 import { useNotification } from '../hooks/useNotification';
 import NotificationContainer from '../components/NotificationContainer';
 import { useLanguage } from '../hooks/useLanguage';
+import SpeechButton from '../components/SpeechButton';
 
 const Home = () => {
   const { notifications, showSuccess, showError, showInfo, removeNotification } = useNotification();
@@ -207,6 +208,13 @@ const Home = () => {
                     className="text-center cursor-pointer group"
                     onClick={() => handleServiceClick(service)}
                   >
+                    <div className="flex justify-end mb-2">
+                      <SpeechButton 
+                        service={service}
+                        size="sm"
+                        variant="hindi"
+                      />
+                    </div>
                     <div className={`w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center ${
                       service.color === 'blue' ? 'bg-blue-100 text-blue-600' :
                       service.color === 'green' ? 'bg-green-100 text-green-600' :

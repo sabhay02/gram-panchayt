@@ -20,6 +20,7 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 import { useNotification } from '../hooks/useNotification';
 import NotificationContainer from '../components/NotificationContainer';
+import SpeechButton from '../components/SpeechButton';
 
 const Schemes = () => {
   const { notifications, showSuccess, showError, showInfo, removeNotification } = useNotification();
@@ -275,7 +276,14 @@ const Schemes = () => {
                       }`}>
                         <Icon size={24} />
                       </div>
-                      {getStatusIcon(scheme.id)}
+                      <div className="flex items-center space-x-2">
+                        <SpeechButton 
+                          scheme={scheme}
+                          size="sm"
+                          variant="hindi"
+                        />
+                        {getStatusIcon(scheme.id)}
+                      </div>
                     </div>
 
                     <div className="mb-2">
