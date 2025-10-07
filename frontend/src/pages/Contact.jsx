@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock, 
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
   Send,
   User,
   MessageSquare,
@@ -17,6 +17,7 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 import { useNotification } from '../hooks/useNotification';
 import NotificationContainer from '../components/NotificationContainer';
+import { contactAPI } from '../services/api';
 
 const Contact = () => {
   const { notifications, showSuccess, showError, showInfo, removeNotification } = useNotification();
@@ -152,7 +153,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       showError('Please fix the errors in the form');
       return;
@@ -162,9 +163,12 @@ const Contact = () => {
     showInfo('Submitting your message...');
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await contactAPI.create({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message
+      });
+
       showSuccess('Message sent successfully! We will get back to you within 24 hours.');
       setFormData({
         name: '',
@@ -175,7 +179,7 @@ const Contact = () => {
         department: ''
       });
     } catch (error) {
-      showError('Failed to send message. Please try again or contact us directly.');
+      showError(error.message || 'Failed to send message. Please try again or contact us directly.');
     } finally {
       setIsSubmitting(false);
     }
